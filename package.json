@@ -1,0 +1,22 @@
+{
+  "name": "cubets",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.6.0",
+    "es6-promise": "^4.2.4",
+    "mysql": "^2.15.0"
+  },
+  "devDependencies": {
+    "@types/async": "^2.0.47",
+    "@types/mysql": "^2.15.2",
+    "@types/node": "^9.4.1"
+  }
+}
