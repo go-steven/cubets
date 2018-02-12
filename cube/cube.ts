@@ -101,9 +101,9 @@ class Cube {
 
         let sql = util.format(`SELECT
         `);
-        method = self.conn.escape(method);
+
         for (let i = 0; i < fields.length;  i++) {
-            let v = self.conn.escape(fields[i]);
+            let v = fields[i];
             sql += util.format(`%s(%s) AS %s`, method, v, v);
             if (i < fields.length - 1) {
                 sql += `,`;
@@ -111,7 +111,7 @@ class Cube {
             sql += `
             `
         }
-        sql += `FROM @CUBE@`
+        sql += `FROM @CUBE@ AS s`
         return self.SummarySQL(name, sql);
     };
 
@@ -125,7 +125,7 @@ class Cube {
         let sql = `SELECT
         `;
         for (let i = 0; i < fields.length; i++) {
-            let v = self.conn.escape(fields[i]);
+            let v = fields[i];
             sql += util.format(`IF(a.%s IS NULL OR a.%s=0, 0, ROUND((b.%s - a.%s) / a.%s, 4)) AS %s`, v, v, v, v, v, v);
             if (i < fields.length - 1) {
                 sql += `,`;

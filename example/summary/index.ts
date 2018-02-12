@@ -1,6 +1,5 @@
 import {Cube, ACube} from '../../cube/cube';
-import {Reports} from "../../engine/reports";
-import {DefaultConn} from "../../utils/dbconn";
+import {RunCube} from "../run-test";
 
 const getCube = (): Cube => {
     let c = ACube().SQL(`SELECT
@@ -25,11 +24,4 @@ FROM @CUBE@ AS t`);
 };
 
 // main script
-new Reports().AddCube("example", getCube())
-    .Run().then((reports)=>{
-    console.info("reports: ", JSON.stringify(reports));
-}).catch((err)=>{
-    console.error(err);
-}).finally(() => {
-    DefaultConn.end();
-});
+RunCube(getCube);

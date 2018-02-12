@@ -15,7 +15,6 @@ const forbid_keywords_cfgs: {[key: string]: string[]} = {
         'DENY',
         'DO',
         'DROP',
-        'END',
         'EXPLAIN',
         'FLUSH',
         'FUNCTION',
