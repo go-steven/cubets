@@ -3,14 +3,18 @@ import {mapSeries} from 'async';
 import {QueryConn} from '../source/conn';
 import {Row, Rows, SummaryRows, RowsFieldsMapping, RowFieldsMapping} from '../source/rows';
 import {ReplaceAll} from '../utils/strings';
-import {TPL_SEP, CUBE_THIS, CUBE_CUBE, CUBE_SUMMARY} from './consts';
 import {TplCfg} from "./tplcfg";
 import {DefaultConn} from "../utils/dbconn";
 import {Mysql} from "../source/mysql";
 
 const util = require('util');
 
-class Cube {
+export const TPL_SEP: string = "@";
+export const CUBE_THIS: string = "THIS";
+export const CUBE_CUBE: string = "CUBE";
+export const CUBE_SUMMARY: string = "SUMMARY";
+
+export class Cube {
     private conn: QueryConn;
     private sql: string;
     private cubes: {[key:string]: Cube};
@@ -44,7 +48,7 @@ class Cube {
             sql = util.format(sql, ...a);
         }
         for (let tpl_var in self.cubes) {
-            console.info("tpl_var: ", tpl_var)
+            console.info("tpl_var: ", tpl_var);
             let c = self.cubes[tpl_var];
             sql = ReplaceAll(sql, tpl_var, util.format(`(%s)`, c.ToSQL()));
         }
@@ -57,6 +61,9 @@ class Cube {
         let self = this;
         let sql = self.ToSQL();
         for (let k in tplcfg) {
+            if (!tplcfg.hasOwnProperty(k)) {
+                continue;
+            }
             let tpl_var = CubeTplVar(k);
             if (tpl_var != "") {
                 sql = ReplaceAll(sql, tpl_var, util.format(`%s`, tplcfg[k]));
@@ -68,6 +75,9 @@ class Cube {
             let v = self.summary[name];
             let sql = v.ToSQL();
             for (let k in tplcfg) {
+                if (!tplcfg.hasOwnProperty(k)) {
+                    continue;
+                }
                 let tpl_var = CubeTplVar(k);
                 if (tpl_var != "") {
                     sql = ReplaceAll(sql, tpl_var, util.format(`%s`, tplcfg[k]));
@@ -111,7 +121,7 @@ class Cube {
             sql += `
             `
         }
-        sql += `FROM @CUBE@ AS s`
+        sql += `FROM @CUBE@ AS s`;
         return self.SummarySQL(name, sql);
     };
 
@@ -253,15 +263,16 @@ class Cube {
                 if (err) {
                     return reject(err);
                 }
+                console.info("results: ", results);
                 return resolve(ret);
             });
         });
     };
-
+    /*
     Escape = (s: string): string => {
         return this.conn.escape(s);
     };
-
+    */
     Copy = (): Cube => {
         let self = this;
         let cube = new Cube(self.conn);
@@ -281,14 +292,12 @@ class Cube {
     };
 }
 
-const CubeTplVar = (name: string): string => {
+export const CubeTplVar = (name: string): string => {
     name = name.trim().toUpperCase();
     return util.format(`%s%s%s`, TPL_SEP, name, TPL_SEP);
 };
 
 // new cube with default connection
-const ACube = (): Cube => {
+export const ACube = (): Cube => {
     return new Cube(new Mysql(DefaultConn));
 };
-
-export {Cube, ACube, SummaryRows};

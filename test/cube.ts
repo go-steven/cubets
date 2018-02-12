@@ -1,4 +1,4 @@
-import {Cube, ACube} from '../cube/cube';
+import {ACube} from '../cube/cube';
 
 let c = ACube().FromTable("skyline.clients");
 

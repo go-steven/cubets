@@ -1,4 +1,3 @@
-import {Row, Rows} from '../source/rows';
 import {ACube} from '../cube/cube';
 import {series} from 'async';
 
@@ -6,7 +5,7 @@ let c = ACube().FromTable("skyline.clients");
 series([
     (callback) => {
         c.Fields().then((fields) => {
-            console.info("fields");
+            console.info("fields: ", fields);
             return callback(undefined, "fields");
         }).catch((err) => {
             return callback(err, undefined);
@@ -14,7 +13,7 @@ series([
     },
     (callback) => {
         c.Row().then((data_row) => {
-            console.info("row");
+            console.info("row: ", data_row);
             return callback(undefined, "row");
         }).catch((err) => {
             return callback(err, undefined);
@@ -22,7 +21,7 @@ series([
     },
     (callback) => {
         c.Rows().then((data_rows) => {
-            console.info("rows");
+            console.info("rows: ", data_rows);
             return callback(undefined, "rows");
         }).catch((err) => {
             return callback(err, undefined);

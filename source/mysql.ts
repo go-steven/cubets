@@ -2,7 +2,6 @@ import {Promise} from 'es6-promise'; // fixed issue： error TS2693: 'Promise' o
 import {SqlForbid} from './sql.forbid';
 import {QueryConn} from './conn';
 import {Row, Rows} from './rows';
-const util = require('util');
 
 class Mysql implements QueryConn {
     private conn: any;
@@ -48,6 +47,9 @@ class Mysql implements QueryConn {
 
                     let rows: Rows = [];
                     for (let i in db_results) {
+                        if (!db_results.hasOwnProperty(i)) {
+                            continue;
+                        }
                         let row: Row = {};
                         for (let j in retFields) {
                             row[retFields[j]] = db_results[i][retFields[j]];
@@ -147,6 +149,9 @@ class Mysql implements QueryConn {
 const trimDbFields = (db_fields: any): string[] => {
     let fields: string[] = [];
     for (let j in db_fields) {
+        if (!db_fields.hasOwnProperty(j)) {
+            continue;
+        }
         let v: string = db_fields[j].name.trim();
         if (v.length >= 2 && v[0] == '`' && v[v.length-1] == '`') {
             v = v.substr(1, v.length-2)

@@ -1,12 +1,12 @@
 import {Promise} from 'es6-promise'; // fixed issue： error TS2693: 'Promise' only refers to a type, but is being used as a value here.
-import {Row, Rows, SummaryRows} from '../source/rows';
+import {Rows, SummaryRows} from '../source/rows';
 import {Cube} from '../cube/cube';
-import {ReadTplCfgFile, TplCfg} from '../cube/tplcfg';
+import {TplCfg} from '../cube/tplcfg';
 import {series, mapSeries} from 'async';
 
 class ReportRet {
     Name: string;
-    Display: any;
+    //Display: any;
     Fields: string[];
     Data: Rows;
     Summary: SummaryRows;
@@ -39,11 +39,11 @@ class Reports {
         }
         return ret;
     };
-
+    /*
     Run = () => {
         return this.RunWithCfgs({})
     };
-
+    */
     RunWithCfgs = (tplcfgs: TplCfg) => {
         console.info("RunWithCfgs().");
         let self = this;
@@ -74,14 +74,15 @@ class Reports {
                 if (err) {
                     return reject(err);
                 }
+                console.info("results: ", results);
                 return resolve(ret);
             });
         });
     };
-
+    /*
     RunAndSave = () => {
     };
-
+    */
 }
 
 const getReportFromCube = (name: string, c: Cube) => {
@@ -123,7 +124,7 @@ const getReportFromCube = (name: string, c: Cube) => {
             if (err) {
                 return reject(err);
             }
-
+            console.info("results: ", results);
             return resolve(report);
         });
     });
