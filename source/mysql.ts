@@ -5,7 +5,7 @@ import {Row, Rows} from './rows';
 const util = require('util');
 
 class Mysql implements QueryConn {
-    conn: any;
+    private conn: any;
 
     constructor(conn: any) {
         this.conn = conn;

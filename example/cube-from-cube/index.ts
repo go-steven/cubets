@@ -3,15 +3,16 @@ import {Reports} from "../../engine/reports";
 import {DefaultConn} from "../../utils/dbconn";
 
 const getCube = (): Cube => {
-    return ACube().FromTable("skyline.clients");
+    let c = ACube().SQL("SELECT * FROM skyline.clients");
+    return ACube().From(c);
 };
 
 // main script
 new Reports().AddCube("example", getCube())
     .Run().then((reports)=>{
-        console.info("reports: ", JSON.stringify(reports));
-    }).catch((err)=>{
-        console.error(err);
-    }).finally(() => {
-        DefaultConn.end();
-    });
+    console.info("reports: ", JSON.stringify(reports));
+}).catch((err)=>{
+    console.error(err);
+}).finally(() => {
+    DefaultConn.end();
+});

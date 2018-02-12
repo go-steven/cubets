@@ -49,7 +49,7 @@ const forbid_keywords_cfgs: {[key: string]: string[]} = {
 };
 
 const generate_sql_forbid_regexp = (forbid_keywords: {[key: string]: string[]}) : string =>{
-    let s: string = `/.*`;
+    let s: string = `.*`;
     for (let keywords_type in forbid_keywords) {
         let keywords = forbid_keywords[keywords_type];
         for (let k = 0; k < keywords.length; k++) {
@@ -67,13 +67,13 @@ const generate_sql_forbid_regexp = (forbid_keywords: {[key: string]: string[]}) 
             }
         }
     }
-    s += `.*/igm`;
+    s += `.*`;
 
     //console.info("regexp: %s", s);
     return s
 };
 
-const sql_forbid_regexp = new RegExp(generate_sql_forbid_regexp(forbid_keywords_cfgs));
+const sql_forbid_regexp = new RegExp(generate_sql_forbid_regexp(forbid_keywords_cfgs), "igm");
 
 const SqlForbid = (sql: string): boolean => {
     sql = sql.trim().toUpperCase();

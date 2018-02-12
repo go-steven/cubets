@@ -11,11 +11,11 @@ import {Mysql} from "../source/mysql";
 const util = require('util');
 
 class Cube {
-    conn: QueryConn;
-    sql: string;
-    cubes: {[key:string]: Cube};
-    summary: {[key:string]: Cube};
-    retMapping: {[key: string]: string};
+    private conn: QueryConn;
+    private sql: string;
+    private cubes: {[key:string]: Cube};
+    private summary: {[key:string]: Cube};
+    private retMapping: {[key: string]: string};
 
     constructor(conn: QueryConn) {
         this.conn = conn;
@@ -44,9 +44,11 @@ class Cube {
             sql = util.format(sql, ...a);
         }
         for (let tpl_var in self.cubes) {
+            console.info("tpl_var: ", tpl_var)
             let c = self.cubes[tpl_var];
-            sql = ReplaceAll(sql, tpl_var, c.ToSQL());
+            sql = ReplaceAll(sql, tpl_var, util.format(`(%s)`, c.ToSQL()));
         }
+        console.info("SQL(), sql: ", sql);
         self.sql = sql;
         return self;
     };
@@ -152,11 +154,11 @@ class Cube {
         alias = alias.trim().toUpperCase();
         self.cubes[alias] = cube;
         return self;
-}
+    };
 
     ToSQL = (): string => {
         return this.sql;
-    }
+    };
 
     Rows = () => {
         let self = this;

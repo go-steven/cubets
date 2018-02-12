@@ -11,7 +11,6 @@ export const ReadTplCfgFile = (tplCfgFile: string): TplCfg => {
         return ret;
     }
 
-
     let j = JSON.parse(content)
     for (let [k, v] of j) {
         ret[k] = v;

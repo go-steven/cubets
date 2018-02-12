@@ -15,7 +15,7 @@ class ReportRet {
 type ReportRets = {[key: string]: ReportRet};
 
 class Reports {
-    data: {[key: string]: Cube};
+    private data: {[key: string]: Cube};
 
     constructor() {
         this.data = {};
