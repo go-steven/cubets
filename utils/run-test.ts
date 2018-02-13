@@ -3,18 +3,14 @@ import {Cube} from '../cube/cube';
 import {TplCfg} from "../cube/tplcfg";
 import {DefaultConn} from "../utils/default.conn";
 
-export const RunCube = (f: () => Cube) => {
+export const RunCube = (f: () => Cube, name: string="cube") => {
     RunReports((): Reports => {
-        return new Reports().AddCube("example", f());
+        return new Reports().AddCube(name, f());
     });
 };
 
-export const RunReports = (f: () => Reports) => {
-    RunReportsWithCfgs(f, {});
-};
-
-export const RunReportsWithCfgs = (f: () => Reports, tplcfg: TplCfg) => {
-    f().RunWithCfgs(tplcfg).then((reports)=>{
+export const RunReports = (f: () => Reports, tplcfg: TplCfg = {}) => {
+    f().Run(tplcfg).then((reports)=>{
         console.info("reports: ", JSON.stringify(reports));
     }).catch((err)=>{
         console.error(err);

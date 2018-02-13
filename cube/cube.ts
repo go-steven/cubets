@@ -1,12 +1,11 @@
 import {Promise} from 'es6-promise'; // fixed issue： error TS2693: 'Promise' only refers to a type, but is being used as a value here.
 import {mapSeries} from 'async';
+import {DefaultConn} from "../utils/default.conn";
+import {ReplaceAll} from '../utils/strings';
+import {Mysql} from "../source/mysql";
 import {QueryConn} from '../source/conn';
 import {Row, Rows, SummaryRows, RowsFieldsMapping, RowFieldsMapping} from '../source/rows';
-import {ReplaceAll} from '../utils/strings';
 import {TplCfg} from "./tplcfg";
-import {DefaultConn} from "../utils/default.conn";
-import {Mysql} from "../source/mysql";
-
 const util = require('util');
 
 export const TPL_SEP: string = "@";
@@ -298,6 +297,6 @@ export const CubeTplVar = (name: string): string => {
 };
 
 // new cube with default connection
-export const ACube = (): Cube => {
-    return new Cube(new Mysql(DefaultConn));
+export const ACube = (conn=DefaultConn): Cube => {
+    return new Cube(new Mysql(conn));
 };

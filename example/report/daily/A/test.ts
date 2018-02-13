@@ -1,5 +1,5 @@
 import {getReports} from "./reports";
-import {RunReportsWithCfgs} from "./utils";
+import {RunReportsWithCfgs} from "cubets/utils/run-test";
 
 // run test script
 RunReportsWithCfgs(getReports, {

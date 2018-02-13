@@ -1,8 +1,9 @@
 import {Promise} from 'es6-promise'; // fixed issue： error TS2693: 'Promise' only refers to a type, but is being used as a value here.
 import {Rows, SummaryRows} from '../source/rows';
 import {Cube} from '../cube/cube';
-import {TplCfg} from '../cube/tplcfg';
+import {TplCfg, ReadTplCfgFile} from '../cube/tplcfg';
 import {series, mapSeries} from 'async';
+import * as fs from 'fs';
 
 class ReportRet {
     Name: string;
@@ -39,13 +40,9 @@ class Reports {
         }
         return ret;
     };
-    /*
-    Run = () => {
-        return this.RunWithCfgs({})
-    };
-    */
-    RunWithCfgs = (tplcfgs: TplCfg) => {
-        console.info("RunWithCfgs().");
+
+    Run = (tplcfgs: TplCfg = {}) => {
+        //console.info("Run().");
         let self = this;
         return new Promise((
             resolve: (reports: ReportRets) => void,
@@ -59,7 +56,7 @@ class Reports {
                 for (let k in cubes) {
                     keys.push(k);
                 }
-                console.info("mapSeries: keys=", keys);
+                //console.info("mapSeries: keys=", keys);
                 return keys;
             })(), (k: string, callback) => {
                 let c = cubes[k].Copy();
@@ -74,19 +71,30 @@ class Reports {
                 if (err) {
                     return reject(err);
                 }
-                console.info("results: ", results);
+                //console.info("results: ", results);
                 return resolve(ret);
             });
         });
     };
-    /*
-    RunAndSave = () => {
+
+    RunAndSave = (tplConfigFile: string, outputFile: string) => {
+        let self = this;
+        return new Promise((
+            resolve: (result: string) => void,
+            reject: (err: any) => void
+        ) => {
+            self.Run(ReadTplCfgFile(tplConfigFile)).then((reports: ReportRets) => {
+                fs.writeFileSync(outputFile, JSON.stringify(reports));
+                return resolve("done");
+            }).catch((err) => {
+                return reject(err);
+            });
+        });
     };
-    */
 }
 
 const getReportFromCube = (name: string, c: Cube) => {
-    console.info("getReportFromCube, name:", name);
+    //console.info("getReportFromCube, name:", name);
     return new Promise((
         resolve: (report: ReportRet) => void,
         reject: (err: any) => void
@@ -124,7 +132,7 @@ const getReportFromCube = (name: string, c: Cube) => {
             if (err) {
                 return reject(err);
             }
-            console.info("results: ", results);
+            //console.info("results: ", results);
             return resolve(report);
         });
     });
