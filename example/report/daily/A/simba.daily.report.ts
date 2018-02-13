@@ -1,4 +1,4 @@
-import {Cube, ACube} from '../../../../cube/cube';
+import {Cube, ACube} from 'cubets/cube/cube';
 
 export const simba_daily_report = (): Cube => {
     return ACube().SQL(`SELECT 

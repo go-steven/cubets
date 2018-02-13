@@ -1,6 +1,6 @@
 import * as mysqldriver from 'mysql';
 import {Mysql} from '../source/mysql';
-import {DefaultConn} from "../utils/dbconn";
+import {DefaultConn} from "../utils/default.conn";
 
 const sql = 'SELECT 1 + 1 AS solution, 33 AS xx FROM dual';
 let mysql = new Mysql(DefaultConn);

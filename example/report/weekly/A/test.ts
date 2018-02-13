@@ -1,4 +1,4 @@
-import {RunReportsWithCfgs} from "../../../run-test";
+import {RunReportsWithCfgs} from "../../../../utils/run-test";
 import {getReports} from "./reports";
 
 // run test script

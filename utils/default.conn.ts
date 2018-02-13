@@ -1,14 +1,6 @@
-import * as mysqldriver from 'mysql';
-import * as fs from 'fs';
-import * as ini from 'ini';
-import {DefaultDbCfg} from "../utils/dbcfg";
+import {LoadIniCfgs} from './inifile';
+import {MysqlConn} from './dbconn';
 
-let config = DefaultDbCfg();
-var DefaultConn  = mysqldriver.createPool({
-    connectionLimit : 10,
-    host     : config["host"],
-    user     : config["user"],
-    password : config["passwd"],
-    database : config["dbname"],
-});
+let config = LoadIniCfgs('/var/code/go/config.cfg', 'masterdb');
+var DefaultConn  = MysqlConn(config['host'], config['user'], config['passwd'], config['dbname']);
 export {DefaultConn};

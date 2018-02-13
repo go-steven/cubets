@@ -1,5 +1,5 @@
-import {RunReportsWithCfgs} from "../../../run-test";
 import {getReports} from "./reports";
+import {RunReportsWithCfgs} from "./utils";
 
 // run test script
 RunReportsWithCfgs(getReports, {

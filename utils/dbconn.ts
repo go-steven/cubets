@@ -1,14 +1,16 @@
 import * as mysqldriver from 'mysql';
-import * as fs from 'fs';
-import * as ini from 'ini';
-import {DefaultDbCfg} from "../utils/dbcfg";
 
-let config = DefaultDbCfg();
-var DefaultConn  = mysqldriver.createPool({
-    connectionLimit : 10,
-    host     : config["host"],
-    user     : config["user"],
-    password : config["passwd"],
-    database : config["dbname"],
-});
-export {DefaultConn};
+export const MysqlConn = (host: string, user: string, passwd: string, database: string, connLimit: number = 100) => {
+    host = host.trim();
+    let pos = host.lastIndexOf(':3306');
+    if (pos >= 0) {
+        host = host.substring(0, pos);
+    }
+    return mysqldriver.createPool({
+        connectionLimit: connLimit,
+        host: host,
+        user: user,
+        password: passwd,
+        database: database,
+    });
+};

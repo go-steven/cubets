@@ -1,6 +1,6 @@
 import {simba_daily_report} from "./simba.daily.report";
 import {zhizuan_daily_report} from "./zhizuan.daily.report";
-import {Reports} from "../../../../engine/reports";
+import {Reports} from "cubets/engine/reports";
 
 export const getReports = (): Reports => {
     return new Reports()

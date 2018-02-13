@@ -1,5 +1,5 @@
 import {Cube, ACube} from '../../cube/cube';
-import {RunCube} from "../run-test";
+import {RunCube} from "../../utils/run-test";
 
 const getCube = (): Cube => {
     return ACube().SQL(`SELECT 

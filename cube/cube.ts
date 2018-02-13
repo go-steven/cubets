@@ -4,7 +4,7 @@ import {QueryConn} from '../source/conn';
 import {Row, Rows, SummaryRows, RowsFieldsMapping, RowFieldsMapping} from '../source/rows';
 import {ReplaceAll} from '../utils/strings';
 import {TplCfg} from "./tplcfg";
-import {DefaultConn} from "../utils/dbconn";
+import {DefaultConn} from "../utils/default.conn";
 import {Mysql} from "../source/mysql";
 
 const util = require('util');

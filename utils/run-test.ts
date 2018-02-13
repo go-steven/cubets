@@ -1,7 +1,7 @@
-import {DefaultConn} from "../utils/dbconn";
 import {Reports} from "../engine/reports";
 import {Cube} from '../cube/cube';
 import {TplCfg} from "../cube/tplcfg";
+import {DefaultConn} from "../utils/default.conn";
 
 export const RunCube = (f: () => Cube) => {
     RunReports((): Reports => {

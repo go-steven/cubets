@@ -1,14 +1,12 @@
-import * as fs from 'fs';
-import * as ini from 'ini';
+import {LoadIniCfgs} from "../utils/inifile";
 
-let config = ini.parse(fs.readFileSync('/var/code/go/config.cfg', 'utf-8'));
-//console.log("config: ", config);
+let config = LoadIniCfgs('/var/code/go/config.cfg', 'masterdb');
+console.log("config: ", config);
 
-//console.log("masterdb", config.masterdb);
-for (let k in config.masterdb) {
-    let vals = k.split(':');
-    if (vals.length === 2 || vals.length === 3) {
-        console.log(`${vals[0]} = ${vals[1]}`);
-    }
+let host = config['host'].trim();
+let pos = host.lastIndexOf(':3306');
+console.log("pos=", pos);
+if (pos >= 0) {
+    host = host.substring(0, pos);
 }
-
+console.log("host: ", host);

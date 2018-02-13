@@ -1,6 +1,6 @@
 import {ACube} from '../cube/cube';
 import {series} from 'async';
-import {DefaultConn} from "../utils/dbconn";
+import {DefaultConn} from "../utils/default.conn";
 
 let c = ACube().FromTable("skyline.clients");
 series([
