@@ -39,7 +39,7 @@ class Mysql implements QueryConn {
                         return resolve([]);
                     }
 
-                    let retFields: string[] = trimDbFields(db_fields);
+                    const retFields: string[] = trimDbFields(db_fields);
                     if (retFields.length <= 0) {
                         console.error('MYSQL run SQL: %s.', sql);
                         return reject('ERROR: no return fields given.');
@@ -91,7 +91,7 @@ class Mysql implements QueryConn {
                         return resolve({});
                     }
 
-                    let retFields: string[] = trimDbFields(db_fields);
+                    const retFields: string[] = trimDbFields(db_fields);
                     if (retFields.length <= 0) {
                         console.error('MYSQL run SQL: %s.', sql);
                         return reject('ERROR: no return fields given.');

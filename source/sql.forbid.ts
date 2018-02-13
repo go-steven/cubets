@@ -50,12 +50,12 @@ const forbid_keywords_cfgs: {[key: string]: string[]} = {
 const generate_sql_forbid_regexp = (forbid_keywords: {[key: string]: string[]}) : string =>{
     let s: string = `.*`;
     for (let keywords_type in forbid_keywords) {
-        let keywords = forbid_keywords[keywords_type];
+        const keywords = forbid_keywords[keywords_type];
         for (let k = 0; k < keywords.length; k++) {
             if (k > 0) {
                 s += `|`;
             }
-            let v = keywords[k].trim().toUpperCase();
+            const v = keywords[k].trim().toUpperCase();
             switch (keywords_type) {
                 case 'no-space':
                     s += v;
