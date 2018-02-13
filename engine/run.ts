@@ -1,4 +1,4 @@
-import {Reports} from "../engine/reports";
+import {Reports} from "./reports";
 import {Cube} from '../cube/cube';
 import {TplCfg} from "../cube/tplcfg";
 import {DefaultConn} from "../utils/default.conn";

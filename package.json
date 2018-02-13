@@ -1,9 +1,10 @@
 {
   "name": "cubets",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dts":"cnpm install dts-generator -g && rm -rf node_modules && dts-generator --name cubets --project ./ --out cubets.d.ts && cnpm install",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

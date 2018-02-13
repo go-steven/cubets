@@ -1,5 +1,5 @@
 import {Cube, ACube} from '../../cube/cube';
-import {RunCube} from "../../utils/run-test";
+import {RunCube} from "../../engine/run";
 
 const getCube = (): Cube => {
     let c1 = ACube().FromTable("skyline.simba_adgroup_rpt_daily");
